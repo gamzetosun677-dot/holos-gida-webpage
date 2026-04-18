@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holos Gıda — Profesyonel Mutfakların Gurme Tercihi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #FFFFFF;
+    --cream: #F7F4EE;
+    --cream-dark: #EDE8DE;
+    --olive: #3D5229;
+    --olive-mid: #5A7040;
+    --olive-pale: #C8D5B9;
+    --olive-wash: #EEF2E8;
+    --charcoal: #1A1C18;
+    --charcoal-soft: #3A3D35;
+    --gray: #6B6F65;
+    --gray-light: #B0B5A8;
+    --border: #DDD8CE;
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--white);
+    color: var(--charcoal);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ─── UTILITY ─── */
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+  @media (max-width: 768px) { .container { padding: 0 24px; } }
+
+  .tag {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--olive-mid);
+    border: 1px solid var(--olive-pale);
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow 0.3s var(--ease);
+  }
+  nav.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,0.06); }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) { .nav-inner { padding: 0 24px; } }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-icon {
+    width: 36px; height: 36px;
+    background: var(--olive);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .nav-logo-icon svg { width: 20px; height: 20px; fill: white; }
+  .nav-logo-text {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--charcoal);
+    letter-spacing: 0.01em;
+  }
+  .nav-logo-text span { color: var(--olive); }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 13.5px;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    color: var(--charcoal-soft);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.2s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 0; height: 1.5px;
+    background: var(--olive);
+    transition: width 0.3s var(--ease);
+  }
+  .nav-links a:hover { color: var(--olive); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .lang-toggle {
+    display: flex;
+    background: var(--cream);
+    border-radius: 100px;
+    padding: 3px;
+    border: 1px solid var(--border);
+  }
+  .lang-btn {
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--gray);
+    transition: all 0.2s;
+  }
+  .lang-btn.active {
+    background: var(--olive);
+    color: white;
+  }
+
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    background: var(--charcoal);
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .nav-cta:hover { background: var(--olive); transform: translateY(-1px); }
+  .nav-cta svg { width: 14px; height: 14px; fill: white; }
+
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 22px; height: 1.5px;
+    background: var(--charcoal);
+    transition: all 0.3s;
+  }
+  @media (max-width: 900px) {
+    .nav-links, .nav-cta { display: none; }
+    .nav-hamburger { display: flex; }
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    background: var(--cream);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Mobile nav panel */
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    top: 72px; left: 0; right: 0;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 24px 28px;
+    z-index: 99;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--charcoal-soft);
+    text-decoration: none;
+    padding: 12px 4px;
+    border-bottom: 1px solid var(--cream-dark);
+    transition: color 0.2s;
+  }
+  .mobile-nav a:last-of-type { border-bottom: none; }
+  .mobile-nav a:hover { color: var(--olive); }
+  .mobile-nav-cta {
+    margin-top: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 24px;
+    background: var(--charcoal);
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 100px;
+    text-decoration: none;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 140px 64px 80px 80px;
+    position: relative;
+    z-index: 2;
+  }
+  @media (max-width: 768px) { .hero-left { padding: 120px 24px 60px; } }
+
+  .hero-eyebrow {
+    font-family: var(--font-body);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--olive-mid);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.2s forwards;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px; height: 1px;
+    background: var(--olive-mid);
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 6vw, 86px);
+    font-weight: 300;
+    line-height: 1.06;
+    letter-spacing: -0.01em;
+    color: var(--charcoal);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.35s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--olive);
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--gray);
+    max-width: 440px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.5s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.65s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    background: var(--olive);
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: all 0.25s var(--ease);
+  }
+  .btn-primary svg { width: 16px; height: 16px; fill: white; transition: transform 0.25s; }
+  .btn-primary:hover { background: var(--charcoal); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(61,82,41,0.3); }
+  .btn-primary:hover svg { transform: translateX(3px); }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 28px;
+    border: 1.5px solid var(--border);
+    color: var(--charcoal-soft);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+  .btn-ghost:hover { border-color: var(--olive); color: var(--olive); }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeIn 1.2s var(--ease) 0.4s forwards;
+  }
+
+  .hero-right-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #4A5E3A 0%, #2D3D22 100%);
+  }
+
+  .hero-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.06;
+    background-image: radial-gradient(circle, white 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .hero-badge {
+    position: absolute;
+    bottom: 72px;
+    left: calc(50% - 88px);
+    background: white;
+    border-radius: 16px;
+    padding: 20px 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+    animation: float 4s ease-in-out infinite;
+    z-index: 10;
+    min-width: 176px;
+  }
+  .hero-badge-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 4px;
+  }
+  .hero-badge-value {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--olive);
+    line-height: 1;
+  }
+  .hero-badge-sub {
+    font-size: 11px;
+    color: var(--gray);
+    margin-top: 2px;
+  }
+
+  .hero-cert {
+    position: absolute;
+    top: 88px;
+    right: 32px;
+    background: rgba(255,255,255,0.11);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 14px;
+    padding: 14px 18px;
+    color: white;
+    z-index: 3;
+    animation: float 4s ease-in-out 2s infinite;
+    text-align: center;
+  }
+  .hero-cert-name {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.65;
+    margin-bottom: 4px;
+  }
+  .hero-cert-code {
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+  .hero-cert-sub {
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-top: 4px;
+  }
+
+  /* ─── HERO SHOWCASE GRID ─── */
+  .hero-showcase {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 14px;
+    padding: 112px 32px 96px 32px;
+  }
+
+  .showcase-card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 36px rgba(0,0,0,0.22);
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    cursor: pointer;
+  }
+  .showcase-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 56px rgba(0,0,0,0.32);
+  }
+  .showcase-card-img {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 20px;
+    min-height: 0;
+    background: #fafaf7;
+  }
+  .showcase-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    transition: transform 0.3s var(--ease);
+  }
+  .showcase-card:hover .showcase-card-img img { transform: scale(1.07); }
+  .showcase-card-foot {
+    padding: 10px 14px 12px;
+    border-top: 1px solid #f0ede8;
+    background: white;
+  }
+  .showcase-card-name {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--charcoal);
+    line-height: 1.2;
+  }
+  .showcase-card-cat {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--olive-mid);
+    margin-top: 2px;
+  }
+
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-badge { display: none; }
+  }
+
+  /* ─── CONTACT RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    #contact .container > div {
+      grid-template-columns: 1fr !important;
+      gap: 48px !important;
+    }
+  }
+
+  /* ─── MARQUEE ─── */
+  .marquee-strip {
+    background: var(--charcoal);
+    height: 48px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  .marquee-inner {
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    animation: marquee 28s linear infinite;
+    white-space: nowrap;
+    flex-shrink: 0;
+    width: max-content;
+  }
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    flex-shrink: 0;
+  }
+  .marquee-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--olive-pale); }
+
+  /* ─── SECTION GENERIC ─── */
+  section { padding: 112px 0; }
+  .section-header { margin-bottom: 64px; }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--charcoal);
+    letter-spacing: -0.01em;
+  }
+  .section-title em { font-style: italic; color: var(--olive); }
+  .section-desc {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--gray);
+    max-width: 480px;
+    margin-top: 16px;
+  }
+
+  /* ─── ABOUT ─── */
+  .about { background: var(--white); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 48px; } }
+
+  .about-text p {
+    font-size: 15.5px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--gray);
+    margin-bottom: 20px;
+  }
+  .about-text p:last-of-type { margin-bottom: 36px; }
+  .about-text strong { color: var(--charcoal-soft); font-weight: 500; }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .stat-card {
+    background: var(--cream);
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: background 0.3s;
+  }
+  .stat-card:hover { background: var(--olive-wash); }
+  .stat-card:nth-child(1) { border-radius: 20px 0 0 0; }
+  .stat-card:nth-child(2) { border-radius: 0 20px 0 0; }
+  .stat-card:nth-child(3) { border-radius: 0 0 0 20px; }
+  .stat-card:nth-child(4) { border-radius: 0 0 20px 0; }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--olive);
+  }
+  .stat-label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  /* ─── PRODUCTS ─── */
+  .products { background: var(--cream); }
+  .products-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 56px;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .products-link {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--olive);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap 0.2s;
+    white-space: nowrap;
+  }
+  .products-link:hover { gap: 12px; }
+  .products-link svg { width: 16px; height: 16px; fill: var(--olive); }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 900px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .products-grid { grid-template-columns: 1fr; } }
+
+  .product-card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+    position: relative;
+  }
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.1);
+  }
+  .product-card:first-child {
+    grid-column: 1 / 3;
+    grid-row: 1;
+  }
+  @media (max-width: 900px) { .product-card:first-child { grid-column: 1 / -1; } }
+
+  .product-img {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .product-card:first-child .product-img { height: 260px; }
+
+  .prod-bg-1 { background: linear-gradient(135deg, #F5E6C8 0%, #EDD49A 100%); }
+  .prod-bg-2 { background: linear-gradient(135deg, #DDE8D0 0%, #B8CEAD 100%); }
+  .prod-bg-3 { background: linear-gradient(135deg, #D0DDD0 0%, #A8BFAA 100%); }
+  .prod-bg-4 { background: linear-gradient(135deg, #E8D8C8 0%, #C8A888 100%); }
+  .prod-bg-5 { background: linear-gradient(135deg, #F0E0E0 0%, #D8B0B0 100%); }
+
+  .product-icon {
+    font-size: 72px;
+    line-height: 1;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.1));
+    transition: transform 0.35s var(--ease);
+  }
+  .product-card:hover .product-icon { transform: scale(1.1) rotate(-3deg); }
+
+  .product-photo {
+    width: 82%;
+    max-height: 148px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    transition: transform 0.35s var(--ease);
+  }
+  .product-card:first-child .product-photo { max-height: 200px; }
+  .product-card:hover .product-photo { transform: scale(1.07); }
+
+  .product-info {
+    padding: 24px 28px 28px;
+  }
+  .product-cat {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--olive-mid);
+    margin-bottom: 8px;
+  }
+  .product-name {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--charcoal);
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+  .product-desc {
+    font-size: 13.5px;
+    font-weight: 300;
+    color: var(--gray);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .product-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--olive);
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: gap 0.2s;
+  }
+  .product-card:hover .product-arrow { gap: 12px; }
+  .product-arrow svg { width: 14px; height: 14px; fill: var(--olive); }
+
+  /* ─── VALUES ─── */
+  .values { background: var(--white); }
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    border-radius: 24px;
+    overflow: hidden;
+    margin-top: 64px;
+  }
+  @media (max-width: 768px) { .values-grid { grid-template-columns: 1fr; } }
+
+  .value-card {
+    background: var(--cream);
+    padding: 52px 40px;
+    transition: background 0.3s;
+  }
+  .value-card:hover { background: var(--olive-wash); }
+  .value-icon {
+    width: 52px; height: 52px;
+    background: var(--olive-wash);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+    transition: background 0.3s;
+  }
+  .value-card:hover .value-icon { background: var(--olive-pale); }
+  .value-icon svg { width: 26px; height: 26px; fill: var(--olive); }
+  .value-title {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--charcoal);
+    margin-bottom: 14px;
+  }
+  .value-text {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--gray);
+  }
+
+  /* ─── CTA BANNER ─── */
+  .cta-banner {
+    background: var(--olive);
+    padding: 96px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-banner-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: radial-gradient(circle, white 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+  .cta-inner {
+    position: relative;
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  .cta-inner .tag {
+    color: rgba(255,255,255,0.7);
+    border-color: rgba(255,255,255,0.25);
+  }
+  .cta-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: white;
+    margin-bottom: 20px;
+  }
+  .cta-title em { font-style: italic; opacity: 0.8; }
+  .cta-sub {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 44px;
+  }
+  .cta-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn-white {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 36px;
+    background: white;
+    color: var(--olive);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+  .btn-white:hover { background: var(--cream); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+  .btn-outline-white {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    color: white;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+  .btn-outline-white:hover { border-color: white; background: rgba(255,255,255,0.08); }
+
+  /* ─── NEWS ─── */
+  .news { background: var(--cream); }
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 56px;
+  }
+  @media (max-width: 900px) { .news-grid { grid-template-columns: 1fr; } }
+
+  .news-card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  }
+  .news-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.08); }
+
+  .news-img {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+  }
+  .news-bg-1 { background: linear-gradient(135deg, #E8F0DA, #C8D9A8); }
+  .news-bg-2 { background: linear-gradient(135deg, #F5E6C8, #EDD49A); }
+  .news-bg-3 { background: linear-gradient(135deg, #D0DDD0, #A8BFAA); }
+
+  .news-body { padding: 24px 28px 28px; }
+  .news-date {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    margin-bottom: 10px;
+  }
+  .news-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--charcoal);
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+  .news-excerpt {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--gray);
+    line-height: 1.65;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--charcoal);
+    color: white;
+    padding: 80px 0 40px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 60px;
+    margin-bottom: 64px;
+  }
+  @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; } }
+  @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } }
+
+  .footer-brand .nav-logo-text { color: white; }
+  .footer-brand .nav-logo-text span { color: var(--olive-pale); }
+  .footer-tagline {
+    font-size: 13.5px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.45);
+    margin: 20px 0 28px;
+    max-width: 280px;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 12px;
+  }
+  .social-btn {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .social-btn:hover { background: var(--olive); border-color: var(--olive); }
+  .social-btn svg { width: 14px; height: 14px; fill: rgba(255,255,255,0.6); }
+
+  .footer-col h4 {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 20px;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-links a {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .footer-contact-item svg { width: 14px; height: 14px; fill: var(--olive-pale); margin-top: 2px; flex-shrink: 0; }
+  .footer-contact-item span {
+    font-size: 13.5px;
+    font-weight: 300;
+    color: black;
+    line-height: 1.6;
+  }
+  .footer-contact-item a {text-decoration: none; color: inherit;}
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-copy {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.3);
+  }
+  .footer-cert-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    padding: 7px 16px;
+  }
+  .footer-cert-badge svg { width: 14px; height: 14px; fill: var(--olive-pale); }
+  .footer-cert-badge span { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; color: rgba(255,255,255,0.5); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-10px); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2C9 2 6 4 6 7c0 2.5 1.5 4.5 3.5 5.5-.3.5-.5 1-.5 1.5H6v2h2v4h8v-4h2v-2h-3c0-.5-.2-1-.5-1.5C16.5 11.5 18 9.5 18 7c0-3-3-5-6-5z"/></svg>
+      </div>
+      <span class="nav-logo-text">Holos<span>.</span></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#" data-tr="Anasayfa" data-en="Home">Anasayfa</a></li>
+      <li><a href="#about" data-tr="Hakkımızda" data-en="About">Hakkımızda</a></li>
+      <li><a href="#products" data-tr="Ürünler" data-en="Products">Ürünler</a></li>
+      <li><a href="#news" data-tr="Haberler" data-en="News">Haberler</a></li>
+      <li><a href="#contact" data-tr="İletişim" data-en="Contact">İletişim</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="btnTR" onclick="setLang('tr')">TR</button>
+        <button class="lang-btn" id="btnEN" onclick="setLang('en')">EN</button>
+      </div>
+      <a href="#contact" class="nav-cta">
+        <span data-tr="Teklif Al" data-en="Get Quote">Teklif Al</span>
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── MOBILE NAV ─── -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#" data-tr="Anasayfa" data-en="Home">Anasayfa</a>
+  <a href="#about" data-tr="Hakkımızda" data-en="About">Hakkımızda</a>
+  <a href="#products" data-tr="Ürünler" data-en="Products">Ürünler</a>
+  <a href="#news" data-tr="Haberler" data-en="News">Haberler</a>
+  <a href="#contact" data-tr="İletişim" data-en="Contact">İletişim</a>
+  <a href="#contact" class="mobile-nav-cta" data-tr="Teklif Al" data-en="Get Quote">Teklif Al</a>
+</div>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-eyebrow" data-tr="Profesyonel Mutfaklar için Gurme Lezzetler" data-en="Gourmet Flavors for Professional Kitchens">
+      Profesyonel Mutfaklar için Gurme Lezzetler
+    </div>
+    <h1 class="hero-title" data-tr="Mutfağınızın <em>lezzet</em> ortağı" data-en="Your kitchen's <em>flavor</em> partner">
+      Mutfağınızın<br><em>lezzet</em> ortağı
+    </h1>
+    <p class="hero-sub" data-tr="HORECA profesyonelleri için yüksek kaliteli toz gıda ürünleri. 2009'dan bu yana FSSC 22000 standartlarında üretim." data-en="High-quality dry food products for HORECA professionals. Production to FSSC 22000 standards since 2009.">
+      HORECA profesyonelleri için yüksek kaliteli toz gıda ürünleri. 2009'dan bu yana FSSC 22000 standartlarında üretim.
+    </p>
+    <div class="hero-actions">
+      <a href="#products" class="btn-primary">
+        <span data-tr="Ürünleri Keşfet" data-en="Explore Products">Ürünleri Keşfet</span>
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#about" class="btn-ghost" data-tr="Hikayemiz" data-en="Our Story">Hikayemiz</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-bg"></div>
+    <div class="hero-pattern"></div>
+    <div class="hero-showcase">
+      <div class="showcase-card">
+        <div class="showcase-card-img">
+          <img src="patates_nisasta_web.png" alt="Nişastalar">
+        </div>
+        <div class="showcase-card-foot">
+          <div class="showcase-card-cat">Hammadde</div>
+          <div class="showcase-card-name">Nişastalar</div>
+        </div>
+      </div>
+      <div class="showcase-card">
+        <div class="showcase-card-img">
+          <img src="kabartma_tozu_web.png" alt="Kabartıcılar">
+        </div>
+        <div class="showcase-card-foot">
+          <div class="showcase-card-cat">Pastacılık</div>
+          <div class="showcase-card-name">Kabartıcılar</div>
+        </div>
+      </div>
+      <div class="showcase-card">
+        <div class="showcase-card-img">
+          <img src="tapiyoka_web.png" alt="Tapioka">
+        </div>
+        <div class="showcase-card-foot">
+          <div class="showcase-card-cat">Özel Ürün</div>
+          <div class="showcase-card-name">Tapioka & Özel</div>
+        </div>
+      </div>
+      <div class="showcase-card">
+        <div class="showcase-card-img">
+          <img src="kurabiye_web.png" alt="Unlar & Şeker">
+        </div>
+        <div class="showcase-card-foot">
+          <div class="showcase-card-cat">Temel Ürün</div>
+          <div class="showcase-card-name">Unlar & Şeker</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-cert">
+      <div class="hero-cert-name">Gıda Güvenliği</div>
+      <div class="hero-cert-code">FSSC 22000</div>
+      <div class="hero-cert-sub">Sertifikalı Üretim</div>
+    </div>
+  </div>
+  <!-- Badge sits at the column boundary, inside .hero (position:relative) -->
+  <div class="hero-badge">
+    <div class="hero-badge-label" data-tr="Yıllık Deneyim" data-en="Years Experience">Yıllık Deneyim</div>
+    <div class="hero-badge-value">15+</div>
+    <div class="hero-badge-sub" data-tr="Gıda sektöründe" data-en="In the food industry">Gıda sektöründe</div>
+  </div>
+</section>
+
+<!-- ─── MARQUEE ─── -->
+<div class="marquee-strip">
+  <div class="marquee-inner" id="marqueeInner">
+    <!-- filled by JS -->
+  </div>
+</div>
+
+<!-- ─── ABOUT ─── -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <span class="tag" data-tr="Hakkımızda" data-en="About Us">Hakkımızda</span>
+        <h2 class="section-title" data-tr="Kalite tutkusu ile <em>büyüyen</em> bir marka" data-en="A brand <em>growing</em> with a passion for quality">
+          Kalite tutkusu ile <em>büyüyen</em> bir marka
+        </h2>
+        <p data-tr="Hikayemiz 2009 yılında Progeda adı ile başladı. 2012'de unvan değişikliği ile HOLOS olarak yolumuza devam ettik. Profesyonel mutfaklarda gurme ürünlerin eksikliğini belirleyerek 2018'de bu alana yöneldik." data-en="Our story began in 2009 under the name Progeda. In 2012 we continued our journey as HOLOS. Identifying the lack of gourmet products in professional kitchens, we pivoted to this field in 2018.">
+          Hikayemiz 2009 yılında Progeda adı ile başladı. 2012'de unvan değişikliği ile HOLOS olarak yolumuza devam ettik. Profesyonel mutfaklarda gurme ürünlerin eksikliğini belirleyerek 2018'de bu alana yöneldik.
+        </p>
+        <p data-tr="<strong>Toz gıda</strong> üretiminin tüm aşamalarında — öğütme, eleme, karıştırma ve paketleme — FSSC 22000 standartlarını titizlikle uyguluyoruz. Deneyimli ekibimizle sürekli iyileştirme çalışmaları yürütüyoruz." data-en="In all stages of <strong>dry food</strong> production — grinding, sifting, mixing, and packaging — we rigorously apply FSSC 22000 standards. With our experienced team we continuously pursue improvement.">
+          <strong>Toz gıda</strong> üretiminin tüm aşamalarında — öğütme, eleme, karıştırma ve paketleme — FSSC 22000 standartlarını titizlikle uyguluyoruz. Deneyimli ekibimizle sürekli iyileştirme çalışmaları yürütüyoruz.
+        </p>
+        <a href="#" class="btn-primary" style="width: fit-content;">
+          <span data-tr="Daha Fazla" data-en="Learn More">Daha Fazla</span>
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="about-stats reveal" style="transition-delay: 0.15s;">
+        <div class="stat-card">
+          <div class="stat-num">2009</div>
+          <div class="stat-label" data-tr="Kuruluş Yılı" data-en="Founded">Kuruluş Yılı</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">5+</div>
+          <div class="stat-label" data-tr="Ürün Kategorisi" data-en="Product Categories">Ürün Kategorisi</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">FSSC</div>
+          <div class="stat-label" data-tr="22000 Sertifikalı" data-en="22000 Certified">22000 Sertifikalı</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">B2B</div>
+          <div class="stat-label" data-tr="HORECA Odaklı" data-en="HORECA Focused">HORECA Odaklı</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRODUCTS ─── -->
+<section class="products" id="products">
+  <div class="container">
+    <div class="products-header">
+      <div class="reveal">
+        <span class="tag" data-tr="Ürün Kategorileri" data-en="Product Categories">Ürün Kategorileri</span>
+        <h2 class="section-title" data-tr="Mutfağınıza <em>lezzet</em> katan ürünler" data-en="Products that bring <em>flavor</em> to your kitchen">
+          Mutfağınıza <em>lezzet</em> katan ürünler
+        </h2>
+      </div>
+      <a href="#" class="products-link reveal" style="transition-delay: 0.1s;">
+        <span data-tr="Tüm Ürünler" data-en="All Products">Tüm Ürünler</span>
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="#3D5229" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+    <div class="products-grid">
+
+      <!-- WIDE CARD: Nişastalar -->
+      <div class="product-card reveal">
+        <div class="product-img prod-bg-1">
+          <img src="patates_nisasta_web.png" alt="Nişastalar" class="product-photo">
+        </div>
+        <div class="product-info">
+          <div class="product-cat" data-tr="Hammadde" data-en="Raw Material">Hammadde</div>
+          <div class="product-name" data-tr="Nişastalar" data-en="Starches">Nişastalar</div>
+          <div class="product-desc" data-tr="Mısır, buğday, patates ve tapioka nişastası. Gıda sanayiinin vazgeçilmez bağlayıcı ve kıvam vericileri. 500 g ile 3 kg arasında çeşitli ambalaj seçenekleri." data-en="Corn, wheat, potato and tapioca starch. Indispensable binders and thickeners for the food industry. Available in various packaging from 500 g to 3 kg.">
+            Mısır, buğday, patates ve tapioka nişastası. Gıda sanayiinin vazgeçilmez bağlayıcı ve kıvam vericileri. 500 g ile 3 kg arasında çeşitli ambalaj seçenekleri.
+          </div>
+          <a href="#" class="product-arrow">
+            <span data-tr="İncele" data-en="Explore">İncele</span>
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="#3D5229" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Kabartıcılar -->
+      <div class="product-card reveal" style="transition-delay:0.08s;">
+        <div class="product-img prod-bg-2">
+          <img src="kabartma_tozu_web.png" alt="Kabartıcılar" class="product-photo">
+        </div>
+        <div class="product-info">
+          <div class="product-cat" data-tr="Pastacılık" data-en="Pastry">Pastacılık</div>
+          <div class="product-name" data-tr="Kabartma Tozu & Karbonat" data-en="Baking Powder & Bicarbonate">Kabartma Tozu & Karbonat</div>
+          <div class="product-desc" data-tr="FSSC 22000 standartlarında üretilen kabartma tozu ve sodyum bikarbonat. Profesyonel fırıncılık için tutarlı kabartma gücü." data-en="Baking powder and sodium bicarbonate produced to FSSC 22000 standards. Consistent leavening power for professional baking.">
+            FSSC 22000 standartlarında üretilen kabartma tozu ve sodyum bikarbonat. Profesyonel fırıncılık için tutarlı kabartma gücü.
+          </div>
+          <a href="#" class="product-arrow">
+            <span data-tr="İncele" data-en="Explore">İncele</span>
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="#3D5229" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Unlar -->
+      <div class="product-card reveal" style="transition-delay:0.16s;">
+        <div class="product-img prod-bg-3">
+          <img src="tapiyoka_web.png" alt="Unlar" class="product-photo">
+        </div>
+        <div class="product-info">
+          <div class="product-cat" data-tr="Temel Ürün" data-en="Staple Product">Temel Ürün</div>
+          <div class="product-name" data-tr="Unlar" data-en="Flours">Unlar</div>
+          <div class="product-desc" data-tr="Galeta unu, mısır unu ve pirinç unu. Kaplama, kıvam ve hacim için profesyonel mutfakların temel hammaddeleri." data-en="Breadcrumbs, corn flour and rice flour. Core raw materials for coating, consistency and volume in professional kitchens.">
+            Galeta unu, mısır unu ve pirinç unu. Kaplama, kıvam ve hacim için profesyonel mutfakların temel hammaddeleri.
+          </div>
+          <a href="#" class="product-arrow">
+            <span data-tr="İncele" data-en="Explore">İncele</span>
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="#3D5229" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Şeker & Tatlandırıcılar -->
+      <div class="product-card reveal" style="transition-delay:0.24s;">
+        <div class="product-img prod-bg-4">
+          <img src="kurabiye_web.png" alt="Şeker & Tatlandırıcılar" class="product-photo">
+        </div>
+        <div class="product-info">
+          <div class="product-cat" data-tr="Tatlandırıcı" data-en="Sweetener">Tatlandırıcı</div>
+          <div class="product-name" data-tr="Şeker & Tatlandırıcılar" data-en="Sugar & Sweeteners">Şeker & Tatlandırıcılar</div>
+          <div class="product-desc" data-tr="Pudra şekeri, şekerli vanilin ve pudra tuzu çeşitleri. Topaklanmayı önleyici katkılarla uzun raf ömrü." data-en="Powdered sugar, vanilla sugar and fine salt varieties. Long shelf life with anti-caking additives.">
+            Pudra şekeri, şekerli vanilin ve pudra tuzu çeşitleri. Topaklanmayı önleyici katkılarla uzun raf ömrü.
+          </div>
+          <a href="#" class="product-arrow">
+            <span data-tr="İncele" data-en="Explore">İncele</span>
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="#3D5229" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Kaplama & Özel -->
+      <div class="product-card reveal" style="transition-delay:0.32s;">
+        <div class="product-img prod-bg-5" style="flex-direction:column; gap:8px;">
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none" style="filter:drop-shadow(0 6px 14px rgba(0,0,0,0.1))">
+            <circle cx="32" cy="32" r="28" fill="rgba(180,130,100,0.18)" stroke="rgba(180,130,100,0.35)" stroke-width="1.5"/>
+            <circle cx="32" cy="32" r="20" fill="rgba(180,130,100,0.28)" stroke="rgba(160,110,80,0.4)" stroke-width="1"/>
+            <circle cx="32" cy="32" r="12" fill="rgba(180,130,100,0.5)"/>
+            <path d="M24 32 Q32 24 40 32 Q32 40 24 32Z" fill="rgba(120,80,50,0.4)"/>
+          </svg>
+          <span style="font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(120,80,50,0.7)">Çıtır Kaplama</span>
+        </div>
+        <div class="product-info">
+          <div class="product-cat" data-tr="Profesyonel" data-en="Professional">Profesyonel</div>
+          <div class="product-name" data-tr="Kaplama & Özel Ürünler" data-en="Coating & Specialty">Kaplama & Özel Ürünler</div>
+          <div class="product-desc" data-tr="Çıtır kaplama harcı ve INPOX öğütülmüş bitkisel lif karışımı. Et, tavuk ve deniz ürünleri için profesyonel kaplama çözümleri." data-en="Crispy coating mix and INPOX ground plant fibre blend. Professional coating solutions for meat, chicken and seafood.">
+            Çıtır kaplama harcı ve INPOX öğütülmüş bitkisel lif karışımı. Et, tavuk ve deniz ürünleri için profesyonel kaplama çözümleri.
+          </div>
+          <a href="#" class="product-arrow">
+            <span data-tr="İncele" data-en="Explore">İncele</span>
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="#3D5229" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── VALUES ─── -->
+<section class="values">
+  <div class="container">
+    <div class="reveal" style="text-align: center; margin-bottom: 0;">
+      <span class="tag" data-tr="Neden Holos?" data-en="Why Holos?">Neden Holos?</span>
+      <h2 class="section-title" style="max-width: 480px; margin: 0 auto;" data-tr="Değerlerimiz bizi <em>farklı</em> kılıyor" data-en="Our values make us <em>different</em>">
+        Değerlerimiz bizi <em>farklı</em> kılıyor
+      </h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal" style="transition-delay:0.05s;">
+        <div class="value-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" stroke="#3D5229" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+        </div>
+        <div class="value-title" data-tr="Kalite Güvencesi" data-en="Quality Assurance">Kalite Güvencesi</div>
+        <div class="value-text" data-tr="FSSC 22000 ve Türk Gıda Mevzuatı'na tam uyum. Her parti üretimde titiz kalite kontrol." data-en="Full compliance with FSSC 22000 and Turkish Food Legislation. Rigorous quality control at every production batch.">
+          FSSC 22000 ve Türk Gıda Mevzuatı'na tam uyum. Her parti üretimde titiz kalite kontrol.
+        </div>
+      </div>
+      <div class="value-card reveal" style="transition-delay:0.12s;">
+        <div class="value-icon">
+          <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="#3D5229" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="value-title" data-tr="Hız & Kolaylık" data-en="Speed & Ease">Hız & Kolaylık</div>
+        <div class="value-text" data-tr="Profesyonel mutfakların yoğun temposuna uygun, hazır kullanım formlarıyla zaman tasarrufu." data-en="Time-saving ready-to-use formats designed for the fast pace of professional kitchens.">
+          Profesyonel mutfakların yoğun temposuna uygun, hazır kullanım formlarıyla zaman tasarrufu.
+        </div>
+      </div>
+      <div class="value-card reveal" style="transition-delay:0.2s;">
+        <div class="value-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#3D5229" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="value-title" data-tr="Güvenilir Tedarik" data-en="Reliable Supply">Güvenilir Tedarik</div>
+        <div class="value-text" data-tr="Kendi tesislerimizde üretim, stok güvencesi ve tutarlı teslimat. Lojistik süreçte tam şeffaflık." data-en="In-house production, stock assurance and consistent delivery. Full transparency in logistics.">
+          Kendi tesislerimizde üretim, stok güvencesi ve tutarlı teslimat. Lojistik süreçte tam şeffaflık.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ─── -->
+<div class="cta-banner">
+  <div class="cta-banner-bg"></div>
+  <div class="cta-inner reveal">
+    <span class="tag" data-tr="İş Birliği" data-en="Partnership">İş Birliği</span>
+    <h2 class="cta-title" data-tr="Profesyonel mutfağınız için <em>doğru ortak</em>" data-en="The <em>right partner</em> for your professional kitchen">
+      Profesyonel mutfağınız için<br><em>doğru ortak</em>
+    </h2>
+    <p class="cta-sub" data-tr="HORECA kanalında lezzetten ve kaliteden ödün vermeden hız ve kolaylık sunmak için buradayız." data-en="We're here to offer speed and ease without compromising on taste or quality in the HORECA channel.">
+      HORECA kanalında lezzetten ve kaliteden ödün vermeden hız ve kolaylık sunmak için buradayız.
+    </p>
+    <div class="cta-actions">
+      <a href="#contact" class="btn-white">
+        <span data-tr="Bizimle İletişime Geçin" data-en="Get in Touch">Bizimle İletişime Geçin</span>
+      </a>
+      <a href="#products" class="btn-outline-white">
+        <span data-tr="Ürünleri İnceleyin" data-en="Browse Products">Ürünleri İnceleyin</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── NEWS ─── -->
+<section class="news" id="news">
+  <div class="container">
+    <div class="section-header reveal" style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-bottom: 0;">
+      <div>
+        <span class="tag" data-tr="Bizden Haberler" data-en="Latest News">Bizden Haberler</span>
+        <h2 class="section-title" data-tr="Güncel <em>haberler</em>" data-en="<em>Latest</em> news">Güncel <em>haberler</em></h2>
+      </div>
+      <a href="#" class="products-link" data-tr="Tüm Haberler →" data-en="All News →">Tüm Haberler →</a>
+    </div>
+    <div class="news-grid">
+      <a href="#" class="news-card reveal" style="transition-delay:0.05s;">
+        <div class="news-img news-bg-1">🌿</div>
+        <div class="news-body">
+          <div class="news-date">Mart 2024</div>
+          <div class="news-title" data-tr="FSSC 22000 sertifikamızı yeniledik" data-en="We renewed our FSSC 22000 certificate">FSSC 22000 sertifikamızı yeniledik</div>
+          <div class="news-excerpt" data-tr="Gıda güvenliği standartlarımız uluslararası denetimlerde bir kez daha onaylandı." data-en="Our food safety standards were once again confirmed in international audits.">Gıda güvenliği standartlarımız uluslararası denetimlerde bir kez daha onaylandı.</div>
+        </div>
+      </a>
+      <a href="#" class="news-card reveal" style="transition-delay:0.12s;">
+        <div class="news-img news-bg-2">🧁</div>
+        <div class="news-body">
+          <div class="news-date">Şubat 2024</div>
+          <div class="news-title" data-tr="Yeni kek karışımı serimiz raflarda" data-en="Our new cake mix series is on the shelf">Yeni kek karışımı serimiz raflarda</div>
+          <div class="news-excerpt" data-tr="Pastacılık segmentini güçlendirmek için geliştirilen 4 yeni ürün tanıtıldı." data-en="4 new products developed to strengthen the pastry segment were introduced.">Pastacılık segmentini güçlendirmek için geliştirilen 4 yeni ürün tanıtıldı.</div>
+        </div>
+      </a>
+      <a href="#" class="news-card reveal" style="transition-delay:0.2s;">
+        <div class="news-img news-bg-3">🤝</div>
+        <div class="news-body">
+          <div class="news-date">Ocak 2024</div>
+          <div class="news-title" data-tr="Yeni distribütör anlaşmaları imzalandı" data-en="New distributor agreements signed">Yeni distribütör anlaşmaları imzalandı</div>
+          <div class="news-excerpt" data-tr="HORECA kanalında daha geniş bir coğrafyaya ulaşmak için yeni iş birlikleri kuruldu." data-en="New partnerships established to reach a wider geography in the HORECA channel.">HORECA kanalında daha geniş bir coğrafyaya ulaşmak için yeni iş birlikleri kuruldu.</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section style="background: var(--white); padding: 112px 0;" id="contact">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;">
+      <div class="reveal">
+        <span class="tag" data-tr="İletişim" data-en="Contact">İletişim</span>
+        <h2 class="section-title" data-tr="Birlikte <em>büyüyelim</em>" data-en="Let's <em>grow</em> together">Birlikte <em>büyüyelim</em></h2>
+        <p class="section-desc" data-tr="Ürünlerimiz, fiyatlarımız veya iş birliği fırsatları hakkında bilgi almak için bize ulaşın." data-en="Reach out for information on our products, pricing, or partnership opportunities.">
+          Ürünlerimiz, fiyatlarımız veya iş birliği fırsatları hakkında bilgi almak için bize ulaşın.
+        </p>
+        <div style="margin-top: 40px; display: flex; flex-direction: column; gap: 20px;">
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke="#3D5229" stroke-width="1.5" fill="none"/></svg>
+            <span><a href="tel:+902165155253">0216 515 52 53</a></span>
+          </div>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="#3D5229" stroke-width="1.5" fill="none"/></svg>
+            <span><a href="mailto:info@holosgida.com">info@holosgida.com</a></span>
+          </div>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke="#3D5229" stroke-width="1.5" fill="none"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke="#3D5229" stroke-width="1.5" fill="none"/></svg>
+            <span>Battalgazi Mah. Aytop Gıda Sitesi, Sardunya Sokak No:4-26, Sultanbeyli / İstanbul</span>
+          </div>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay: 0.15s;">
+        <div style="background: var(--cream); border-radius: 24px; padding: 40px;">
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <label style="font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); display: block; margin-bottom: 8px;" data-tr="Ad Soyad" data-en="Full Name">Ad Soyad</label>
+                <input type="text" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 10px; font-family: var(--font-body); font-size: 14px; outline: none; background: white; transition: border-color 0.2s; color: var(--charcoal);" onfocus="this.style.borderColor='var(--olive)'" onblur="this.style.borderColor='var(--border)'">
+              </div>
+              <div>
+                <label style="font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); display: block; margin-bottom: 8px;" data-tr="Şirket" data-en="Company">Şirket</label>
+                <input type="text" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 10px; font-family: var(--font-body); font-size: 14px; outline: none; background: white; transition: border-color 0.2s; color: var(--charcoal);" onfocus="this.style.borderColor='var(--olive)'" onblur="this.style.borderColor='var(--border)'">
+              </div>
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); display: block; margin-bottom: 8px;">E-posta</label>
+              <input type="email" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 10px; font-family: var(--font-body); font-size: 14px; outline: none; background: white; transition: border-color 0.2s; color: var(--charcoal);" onfocus="this.style.borderColor='var(--olive)'" onblur="this.style.borderColor='var(--border)'">
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); display: block; margin-bottom: 8px;" data-tr="Mesajınız" data-en="Your Message">Mesajınız</label>
+              <textarea rows="4" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 10px; font-family: var(--font-body); font-size: 14px; outline: none; background: white; transition: border-color 0.2s; resize: vertical; color: var(--charcoal);" onfocus="this.style.borderColor='var(--olive)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+            </div>
+            <button class="btn-primary" style="width: 100%; justify-content: center; border: none; cursor: pointer;">
+              <span data-tr="Gönder" data-en="Send">Gönder</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom: 0;">
+          <div class="nav-logo-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C9 2 6 4 6 7c0 2.5 1.5 4.5 3.5 5.5-.3.5-.5 1-.5 1.5H6v2h2v4h8v-4h2v-2h-3c0-.5-.2-1-.5-1.5C16.5 11.5 18 9.5 18 7c0-3-3-5-6-5z"/></svg>
+          </div>
+          <span class="nav-logo-text">Holos<span>.</span></span>
+        </div>
+        <p class="footer-tagline" data-tr="Profesyonel mutfakların gurme tercihi. 2009'dan bu yana kalite ve lezzet." data-en="The gourmet choice of professional kitchens. Quality and flavor since 2009.">
+          Profesyonel mutfakların gurme tercihi. 2009'dan bu yana kalite ve lezzet.
+        </p>
+        <div class="footer-social">
+          <a href="#" class="social-btn">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="#" class="social-btn">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke="white" stroke-width="1" fill="none"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="white"/></svg>
+          </a>
+          <a href="#" class="social-btn">
+            <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75,15.02 15.5,12 9.75,8.98 9.75,15.02" fill="var(--charcoal)"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 data-tr="Sayfalar" data-en="Pages">Sayfalar</h4>
+        <ul class="footer-links">
+          <li><a href="#" data-tr="Anasayfa" data-en="Home">Anasayfa</a></li>
+          <li><a href="#about" data-tr="Hakkımızda" data-en="About">Hakkımızda</a></li>
+          <li><a href="#news" data-tr="Haberler" data-en="News">Haberler</a></li>
+          <li><a href="#contact" data-tr="İletişim" data-en="Contact">İletişim</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-tr="Ürünler" data-en="Products">Ürünler</h4>
+        <ul class="footer-links">
+          <li><a href="#products" data-tr="Nişastalar" data-en="Starches">Nişastalar</a></li>
+          <li><a href="#products" data-tr="Kabartma Tozu & Karbonat" data-en="Baking Powder & Bicarbonate">Kabartma Tozu & Karbonat</a></li>
+          <li><a href="#products" data-tr="Unlar" data-en="Flours">Unlar</a></li>
+          <li><a href="#products" data-tr="Şeker & Tatlandırıcılar" data-en="Sugar & Sweeteners">Şeker & Tatlandırıcılar</a></li>
+          <li><a href="#products" data-tr="Kaplama & Özel Ürünler" data-en="Coating & Specialty">Kaplama & Özel Ürünler</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-tr="İletişim" data-en="Contact">İletişim</h4>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke="rgba(200,213,185,1)" stroke-width="1.5" fill="none"/></svg>
+          <span><a href="tel:+902165155253">0216 515 52 53</a></span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="rgba(200,213,185,1)" stroke-width="1.5" fill="none"/></svg>
+          <span><a href="mailto:info@holosgida.com">info@holosgida.com</a></span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke="rgba(200,213,185,1)" stroke-width="1.5" fill="none"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke="rgba(200,213,185,1)" stroke-width="1.5" fill="none"/></svg>
+          <span>Sultanbeyli / İstanbul</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 Holos Gıda. <span data-tr="Tüm hakları saklıdır." data-en="All rights reserved.">Tüm hakları saklıdır.</span></div>
+      <div class="footer-cert-badge">
+        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" stroke="rgba(200,213,185,1)" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+        <span>FSSC 22000 Sertifikalı</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ─── LANG SYSTEM ───
+  let currentLang = 'tr';
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.getElementById('btnTR').classList.toggle('active', lang === 'tr');
+    document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+
+    document.querySelectorAll('[data-tr]').forEach(el => {
+      const val = lang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-tr');
+      if (val) {
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+          el.placeholder = val;
+        } else {
+          el.innerHTML = val;
+        }
+      }
+    });
+
+    // update page title
+    document.title = lang === 'en'
+      ? 'Holos Gıda — The Gourmet Choice of Professional Kitchens'
+      : 'Holos Gıda — Profesyonel Mutfakların Gurme Tercihi';
+  }
+
+  // ─── NAV SCROLL ───
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // ─── HAMBURGER ───
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  const bars = hamburger.querySelectorAll('span');
+
+  hamburger.addEventListener('click', () => {
+    const open = mobileNav.classList.toggle('open');
+    bars[0].style.transform = open ? 'translateY(6.5px) rotate(45deg)' : '';
+    bars[1].style.opacity  = open ? '0' : '1';
+    bars[2].style.transform = open ? 'translateY(-6.5px) rotate(-45deg)' : '';
+  });
+
+  mobileNav.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileNav.classList.remove('open');
+      bars.forEach(b => { b.style.transform = ''; b.style.opacity = '1'; });
+    });
+  });
+
+  document.addEventListener('click', e => {
+    if (!navbar.contains(e.target) && !mobileNav.contains(e.target)) {
+      mobileNav.classList.remove('open');
+      bars.forEach(b => { b.style.transform = ''; b.style.opacity = '1'; });
+    }
+  });
+
+  // ─── REVEAL ON SCROLL ───
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ─── MARQUEE ───
+  const marqueeItems = [
+    { tr: 'FSSC 22000 Sertifikalı Üretim', en: 'FSSC 22000 Certified Production' },
+    { tr: 'Mısır · Buğday · Patates · Tapioka Nişastası', en: 'Corn · Wheat · Potato · Tapioca Starch' },
+    { tr: 'Kabartma Tozu & Karbonat', en: 'Baking Powder & Bicarbonate' },
+    { tr: '2009\'dan Bu Yana Türkiye\'de Üretim', en: 'Produced in Turkey Since 2009' },
+    { tr: 'Türk Gıda Mevzuatı\'na Tam Uyum', en: 'Full Turkish Food Law Compliance' },
+    { tr: 'Galeta Unu · Mısır Unu · Pirinç Unu', en: 'Breadcrumbs · Corn Flour · Rice Flour' },
+    { tr: 'Pudra Şekeri · Vanilin · Pudra Tuzu', en: 'Powdered Sugar · Vanillin · Fine Salt' },
+    { tr: 'Çıtır Kaplama Harcı & INPOX Lif Karışımı', en: 'Crispy Coating Mix & INPOX Fibre Blend' },
+    { tr: 'Kendi Tesisimizde HORECA\'ya Özel Üretim', en: 'In-House Production for HORECA' },
+  ];
+
+  function buildMarquee() {
+    const inner = document.getElementById('marqueeInner');
+    // Duplicate for infinite scroll
+    const items = [...marqueeItems, ...marqueeItems];
+    inner.innerHTML = items.map(item => `
+      <span class="marquee-item">
+        <span class="marquee-dot"></span>
+        <span data-tr="${item.tr}" data-en="${item.en}">${item.tr}</span>
+      </span>
+    `).join('');
+  }
+  buildMarquee();
+</script>
+</body>
+</html>
